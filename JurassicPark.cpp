@@ -8,11 +8,13 @@ JurassicPark::JurassicPark() {
 	int x = (rand() % 10) + 1;
 	cages_num = x;
 	cages = new Cage[x];
+	int rand_climate;
+	int dinosaurs_num = 0;
 	int y;
 	for (int i = 0; i < x; ++i) {
-		y = rand() % 3;
+		rand_climate = rand() % 3;
 		Climate climate;
-		switch (y){
+		switch (rand_climate){
 			case 0: 
 				climate = terrestrial;
 				break;
@@ -25,8 +27,13 @@ JurassicPark::JurassicPark() {
 			default:
 				climate = unknown_climate;
 		}
-		cages[i] = Cage(rand() % 15, climate);
+		y = rand() % 15;
+		cages[i] = Cage(y, climate);
+		dinosaurs_num += y;
 	}
+	warehouse = Warehouse(dinosaurs_num * 10);	// default operator= is okay here(we have only ints to copy)
+	staff = Staff(0);
+
 }
 JurassicPark::~JurassicPark() {
 	if (cages_num == 1)

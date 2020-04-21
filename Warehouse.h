@@ -2,11 +2,14 @@
 
 class Warehouse {
 	int food;
+	int food_capacity;
 
 public:
 	Warehouse();  //default tons of food
+	Warehouse(int food_capacity);
 
-	void getFood() const;
+	int getFood() const;
+	int getFoodCapacity() const;
 
 	void reloading();
 	void resize();

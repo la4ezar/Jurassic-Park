@@ -5,8 +5,9 @@ class Staff {
 
 public:
 	Staff(); //default value for the staff
+	Staff(int staff);
 
-	void getStaff() const;
+	int getStaff() const;
 
-	void resize();
+	void resize(int new_people);
 };

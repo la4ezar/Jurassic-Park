@@ -18,6 +18,6 @@ public:
 
 	void addDinosaur();
 	void removeDinosaur();
-	void addCage();
+	void addCage();	//resize the warehouse and staff
 	void reloadWarehouse();
 };
