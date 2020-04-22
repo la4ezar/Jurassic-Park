@@ -89,3 +89,16 @@ void JurassicPark::removeDinosaur(const char* name, Gender gender, Era era, Spec
 	}
 	std::cerr << "This dinosaur is not in the park. We can't remove it.\n";
 }
+
+void JurassicPark::addCage(int size, Climate climate) {
+	Cage new_cage(size, climate);
+	Cage* new_cages = new Cage[cages_num + 1];
+	for (int i = 0; i < cages_num; ++i) {
+		new_cages[i] = cages[i];
+	}
+	new_cages[cages_num] = new_cage;
+	++cages_num;
+	delete[] cages;
+	cages = new_cages;
+	new_cages = nullptr;
+}

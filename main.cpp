@@ -4,6 +4,7 @@
 #include "JurassicPark.h"
 
 void printDinosName(JurassicPark& park);
+void printCages(JurassicPark& park);
 
 void TestCage();
 void TestDinosaurCompare();
@@ -13,6 +14,7 @@ void TestCageAddnRemove();
 void TestJurrasicParkConstructor(JurassicPark& park);
 void TestJurassicParkAddingDino(JurassicPark& park);
 void TestJurassicParkRemoveDino(JurassicPark& park);
+void TestJurassicParkAddCage(JurassicPark& park);
 
 int main() {
 	srand(time(nullptr));
@@ -25,8 +27,9 @@ int main() {
 	//TestCageAddnRemove();
 	//TestJurrasicParkConstructor(park);
 	//TestJurassicParkAddingDino(park);
-	TestJurassicParkRemoveDino(park);
-	
+	//TestJurassicParkRemoveDino(park);
+	TestJurassicParkAddCage(park);
+
 	return 0;
 }
 
@@ -185,5 +188,27 @@ void TestJurassicParkRemoveDino(JurassicPark& park) {
 	park.removeDinosaur("Wateryking", Male, Cretaceous, Plesiosaur, Watery, Fish);
 	park.removeDinosaur("Watermellow", Female, Jurassic, Plesiosaur, Watery, Fish);
 	printDinosName(park);
+}
 
+void printCages(JurassicPark& park) {
+	int n = park.getCagesNum();
+	Cage* cages = park.getCages();
+	for (int i = 0; i < n; ++i) 
+		std::cout << "Cage " << i + 1 << " has: " << cages[i].getSize() << " size" << std::endl;
+	delete[] cages;
+}
+
+void TestJurassicParkAddCage(JurassicPark& park) {
+	printCages(park);
+
+	park.addCage(3, terrestrial);
+	printCages(park);
+
+	park.addCage(3, terrestrial);
+	park.addCage(6, air);
+	park.addCage(2, aqueous);
+	park.addCage(43, terrestrial);
+	park.addCage(36, air);
+	park.addCage(8, aqueous);
+	printCages(park);
 }
