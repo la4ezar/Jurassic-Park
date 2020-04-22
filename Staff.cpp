@@ -1,6 +1,6 @@
 #include "Staff.h"
 
-Staff::Staff(): staff(0) {}
+///Staff::Staff(): staff(0) {}
 Staff::Staff(int staff): staff(staff) {}
 
 int Staff::getStaff() const {

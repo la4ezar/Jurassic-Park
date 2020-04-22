@@ -16,6 +16,11 @@ public:
 	Cage& operator=(const Cage& other);
 	~Cage();
 
+	bool isEmpty() const;
+	bool isFull() const;
+	bool isSuitable(Dinosaur& dino) const;
+	int dinosaurPosition(const char* name, Gender gender, Era era, Species species, Type type, Food food) const;
+
 	unsigned getDinosaursNum() const;
 	unsigned getSize() const;
 	Climate getClimate() const;

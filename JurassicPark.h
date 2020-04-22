@@ -16,8 +16,8 @@ public:
 	int getCagesNum() const;
 	Cage* getCages() const;
 
-	void addDinosaur();
-	void removeDinosaur();
+	void addDinosaur(const char* name, Gender gender, Era era, Species species, Type type, Food food);
+	void removeDinosaur(const char* name, Gender gender, Era era, Species species, Type type, Food food);
 	void addCage();	//resize the warehouse and staff
 	void reloadWarehouse();
 };

@@ -9,11 +9,12 @@ Cage::Cage()
 Cage::Cage(int size, Climate climate) 
 	: size(size), climate(climate), dinosaurs_num(0), era(unknown_era), type(unknown_type) {
 	if (size != 3 && size != 10 && size != 1) {
-		if (size < 1) this->size = 1;
-		else if (size > 10) this->size = 10;
-		else this->size = 3;
+		if (size < 1) size = 1;
+		else if (size > 10) size = 10;
+		else size = 3;
 	}
 	dinosaurs_arr = new Dinosaur[size];
+	this->size = size;
 }
 
 Cage& Cage::operator=(const Cage& other) {
@@ -35,6 +36,47 @@ Cage& Cage::operator=(const Cage& other) {
 Cage::~Cage() {
 	delete[] dinosaurs_arr;
 	dinosaurs_arr = nullptr;
+}
+
+
+bool Cage::isEmpty() const {
+	return (dinosaurs_num == 0);
+}
+
+bool Cage::isFull() const {
+	if (dinosaurs_num == size)
+		return true;
+	return false;
+}
+
+bool Cage::isSuitable(Dinosaur& dino) const {
+	if (isFull())
+		return false;
+
+	Type type = dino.getType();
+	switch (type) {
+	case Herbivorous:
+	case Carnivorous:
+		if (climate != terrestrial) {
+			return false;
+		}
+		break;
+	case Flying:
+		if (climate != air) {
+			return false;
+		}
+		break;
+	case Watery:
+		if (climate != aqueous) {
+			return false;
+		}
+		break;
+	}
+	
+	if (dino.getEra() != era && era != unknown_era)
+		return false;
+
+	return true;
 }
 
 unsigned Cage::getDinosaursNum() const {
@@ -59,7 +101,7 @@ Dinosaur* Cage::getDinosaursArr() const {
 }
 
 void Cage::addDinosaur(const char* name, Gender gender, Era era, Species species, Type type, Food food) {
-	if(size == dinosaurs_num){
+	if(isFull()) {
 		std::cerr << "There is not enough space for one more dinosaur ! \n";
 		return;
 	}
@@ -116,8 +158,17 @@ void Cage::addDinosaur(const char* name, Gender gender, Era era, Species species
 	}
 }
 
+int Cage::dinosaurPosition(const char* name, Gender gender, Era era, Species species, Type type, Food food) const {
+	Dinosaur searched_dino(name, gender, era, species, type, food);
+	for (int i = 0; i < size; ++i) 
+		if (dinosaurs_arr[i] == searched_dino) 
+			return i;		// The position of the dino if it is in the cage.
+		
+	return -1;	// If this dino is not in the cage.
+}
+
 void Cage::removeDinosaur(const char* name, Gender gender, Era era, Species species, Type type, Food food) {
-	if (dinosaurs_num == 0) {
+	if (isEmpty()) {
 		std::cout << "The cage is empty!";
 		return;
 	}
@@ -125,18 +176,16 @@ void Cage::removeDinosaur(const char* name, Gender gender, Era era, Species spec
 	if (gender == unknown_gender)
 		return;
 	
-	Dinosaur searched_dino(name, gender, era, species, type, food);
-	for (int i = 0; i < size; ++i) {
-		if (dinosaurs_arr[i] == searched_dino) {
-			dinosaurs_arr[i].setUnknown();
-			--dinosaurs_num;
-			if (dinosaurs_num == 0) 
-				type = unknown_type;
-			return;
-		}
+	int dinoPosition = dinosaurPosition(name, gender, era, species, type, food);
+
+	if (dinoPosition != -1) {
+		dinosaurs_arr[dinoPosition].setUnknown();
+		--dinosaurs_num;
+		if (dinosaurs_num == 0)
+			type = unknown_type;
+		return;
 	}
 	std::cout << "This dinosaur is NOT in that cage!" << std::endl;
-
 }
 
 void Cage::removeDinosaur(const Dinosaur other) {

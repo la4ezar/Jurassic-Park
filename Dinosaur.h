@@ -17,6 +17,7 @@ public:
 	Dinosaur();
 	Dinosaur(const char* name,Gender gender, Era era, Species species, Type type, Food food);
 	Dinosaur(const char* name, Gender gender, Era era, Species species);
+	//~Dinosaur();
 	Dinosaur& operator=(const Dinosaur& other);
 	bool operator==(const Dinosaur& other) const;
 	friend std::ostream& operator<<(std::ostream& out, const Dinosaur& dino);

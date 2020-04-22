@@ -3,12 +3,16 @@
 #include <cstdlib>
 #include "JurassicPark.h"
 
+void printDinosName(JurassicPark& park);
+
 void TestCage();
 void TestDinosaurCompare();
 void TestDinosaurUnknown();
 void TestCageAdd();
 void TestCageAddnRemove();
 void TestJurrasicParkConstructor(JurassicPark& park);
+void TestJurassicParkAddingDino(JurassicPark& park);
+void TestJurassicParkRemoveDino(JurassicPark& park);
 
 int main() {
 	srand(time(nullptr));
@@ -20,6 +24,9 @@ int main() {
 	//TestCageAdd();
 	//TestCageAddnRemove();
 	//TestJurrasicParkConstructor(park);
+	//TestJurassicParkAddingDino(park);
+	TestJurassicParkRemoveDino(park);
+	
 	return 0;
 }
 
@@ -135,4 +142,48 @@ void TestJurrasicParkConstructor(JurassicPark& park) {
 	int n = park.getCagesNum();
 	for (int i = 0; i < n; ++i)
 		std::cout << arr[i].getSize() << ' ' << arr[i].getClimate() << std::endl;
+}
+
+void TestJurassicParkAddingDino(JurassicPark& park) {
+	park.addDinosaur("Lucho", Male, Jurassic, Tyrannosaurus, Carnivorous, Meat);
+	park.addDinosaur("Yavorozavur", Male, Jurassic, Pterodactyl, Flying, Meat);
+	park.addDinosaur("Luchozavur", Male, Cretaceous, Triceratops, Carnivorous, Meat);
+	park.addDinosaur("Waterboo", Female, Triassic, Plesiosaur, Watery, Fish);
+	park.addDinosaur("Waterylizard", Female, Cretaceous, Plesiosaur, Watery, Fish);
+	park.addDinosaur("Wateryking", Male, Cretaceous, Plesiosaur, Watery, Fish);
+	park.addDinosaur("Watermellow", Female, Jurassic, Plesiosaur, Watery, Fish);
+
+}
+
+void printDinosName(JurassicPark& park) {
+	Cage* arr = park.getCages();
+	int n = park.getCagesNum();
+	for (int i = 0; i < n; ++i) {
+		Dinosaur* dins = arr[i].getDinosaursArr();
+		for (int j = 0; j < arr[i].getSize(); ++j) {
+			std::cout << dins[j].getName() << std::endl;
+		}
+	}
+}
+
+void TestJurassicParkRemoveDino(JurassicPark& park) {
+	TestJurassicParkAddingDino(park);
+	printDinosName(park);
+
+	park.removeDinosaur("Lucho", Male, Jurassic, Tyrannosaurus, Carnivorous, Meat);
+	park.removeDinosaur("Lucho", Male, Jurassic, Tyrannosaurus, Carnivorous, Meat);
+	printDinosName(park);
+
+	park.removeDinosaur("Yavorozavur", Male, Jurassic, Pterodactyl, Flying, Meat);
+	park.removeDinosaur("Luchozavur", Male, Cretaceous, Triceratops, Carnivorous, Meat);
+	printDinosName(park);
+
+	park.removeDinosaur("Waterboo", Female, Triassic, Plesiosaur, Watery, Fish);
+	park.removeDinosaur("Waterylizard", Female, Cretaceous, Plesiosaur, Watery, Fish);
+	printDinosName(park);
+
+	park.removeDinosaur("Wateryking", Male, Cretaceous, Plesiosaur, Watery, Fish);
+	park.removeDinosaur("Watermellow", Female, Jurassic, Plesiosaur, Watery, Fish);
+	printDinosName(park);
+
 }

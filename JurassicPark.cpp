@@ -5,7 +5,7 @@
 
 
 JurassicPark::JurassicPark() {
-	int x = (rand() % 10) + 1;
+	int x = (rand() % 15) + 1;
 	cages_num = x;
 	cages = new Cage[x];
 	int rand_climate;
@@ -50,4 +50,42 @@ Cage* JurassicPark::getCages() const {
 	for (int i = 0; i < cages_num; ++i) 
 		new_cages[i] = cages[i];
 	return new_cages;
+}
+
+void JurassicPark::reloadWarehouse() {
+	warehouse.reloading();
+}
+
+void JurassicPark::addDinosaur(const char* name, Gender gender, Era era, Species species, Type type, Food food) {
+	Dinosaur dino(name, gender, era, species, type, food);
+
+	bool added = false;
+	for (int i = 0; i < cages_num; ++i) {
+		if (!cages[i].isFull() && cages[i].isSuitable(dino)) {
+			cages[i].addDinosaur(dino);
+			added = true;
+			break;
+		}
+	}
+
+	if (added == false)
+		std::cerr << "We don't have cage for this dino. We can't add it.\n";
+	else {
+		std::cout << "Succesfully added.\n";
+		staff.resize(1);
+	}
+}
+
+void JurassicPark::removeDinosaur(const char* name, Gender gender, Era era, Species species, Type type, Food food) {
+	int position;
+	for (int i = 0; i < cages_num; ++i) {
+		position = cages[i].dinosaurPosition(name, gender, era, species, type, food);
+		if (position != -1) {
+			cages[i].removeDinosaur(name, gender, era, species, type, food);
+			staff.resize(-1);
+			std::cout << "Succesfully removed.\n";
+			return;
+		}
+	}
+	std::cerr << "This dinosaur is not in the park. We can't remove it.\n";
 }
