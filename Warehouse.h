@@ -12,5 +12,5 @@ public:
 	int getFoodCapacity() const;
 
 	void reloading();
-	void resize();
+	void resize(int dino_num);
 };

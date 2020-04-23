@@ -14,6 +14,6 @@ int Warehouse::getFoodCapacity() const {
 void Warehouse::reloading() {
 	food = food_capacity;
 }
-void Warehouse::resize() {
-	food_capacity += 10;
+void Warehouse::resize(int dino_num) {
+	food_capacity += dino_num*10;
 }

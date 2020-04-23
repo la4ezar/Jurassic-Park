@@ -31,8 +31,8 @@ JurassicPark::JurassicPark() {
 		cages[i] = Cage(y, climate);
 		dinosaurs_num += y;
 	}
-	warehouse = Warehouse(dinosaurs_num * 10);	// default operator= is okay here(we have only ints to copy)
-	staff = Staff(0);
+	//warehouse = Warehouse(dinosaurs_num * 10);	// default operator= is okay here(we have only ints to copy)
+	staff = Staff(x*2);
 
 }
 JurassicPark::~JurassicPark() {
@@ -72,7 +72,7 @@ void JurassicPark::addDinosaur(const char* name, Gender gender, Era era, Species
 		std::cerr << "We don't have cage for this dino. We can't add it.\n";
 	else {
 		std::cout << "Succesfully added.\n";
-		staff.resize(1);
+		warehouse.resize(1);
 	}
 }
 
@@ -93,12 +93,26 @@ void JurassicPark::removeDinosaur(const char* name, Gender gender, Era era, Spec
 void JurassicPark::addCage(int size, Climate climate) {
 	Cage new_cage(size, climate);
 	Cage* new_cages = new Cage[cages_num + 1];
-	for (int i = 0; i < cages_num; ++i) {
+	for (int i = 0; i < cages_num; ++i) 
 		new_cages[i] = cages[i];
-	}
+	
+	cages[cages_num].getSize();
 	new_cages[cages_num] = new_cage;
+
+	staff.resize(2);		// 2:1 staff:cages 2 people for 1 cage
+
 	++cages_num;
 	delete[] cages;
 	cages = new_cages;
 	new_cages = nullptr;
+}
+
+int JurassicPark::getFood() const {
+	return warehouse.getFood();
+}
+int JurassicPark::getFoodCapacity() const {
+	return warehouse.getFoodCapacity();
+}
+int JurassicPark::getStaff() const {
+	return staff.getStaff();
 }

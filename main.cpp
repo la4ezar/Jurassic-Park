@@ -15,6 +15,8 @@ void TestJurrasicParkConstructor(JurassicPark& park);
 void TestJurassicParkAddingDino(JurassicPark& park);
 void TestJurassicParkRemoveDino(JurassicPark& park);
 void TestJurassicParkAddCage(JurassicPark& park);
+void TestJurassicParkWarehouse(JurassicPark& park);
+void TestJurassicParkStaff(JurassicPark& park);
 
 int main() {
 	srand(time(nullptr));
@@ -28,7 +30,9 @@ int main() {
 	//TestJurrasicParkConstructor(park);
 	//TestJurassicParkAddingDino(park);
 	//TestJurassicParkRemoveDino(park);
-	TestJurassicParkAddCage(park);
+	//TestJurassicParkAddCage(park);
+	//TestJurassicParkWarehouse(park);
+	//TestJurassicParkStaff(park);
 
 	return 0;
 }
@@ -199,10 +203,10 @@ void printCages(JurassicPark& park) {
 }
 
 void TestJurassicParkAddCage(JurassicPark& park) {
-	printCages(park);
+	//printCages(park);
 
 	park.addCage(3, terrestrial);
-	printCages(park);
+	//printCages(park);
 
 	park.addCage(3, terrestrial);
 	park.addCage(6, air);
@@ -210,5 +214,40 @@ void TestJurassicParkAddCage(JurassicPark& park) {
 	park.addCage(43, terrestrial);
 	park.addCage(36, air);
 	park.addCage(8, aqueous);
-	printCages(park);
+	//printCages(park);
+}
+
+
+void TestJurassicParkWarehouse(JurassicPark& park) {
+	std::cout << "Food: " << park.getFood() << std::endl;
+	std::cout << "Capacity: " << park.getFoodCapacity() << std::endl;
+	std::cout << std::endl;
+	park.reloadWarehouse();
+	std::cout << "After reloading the warehouse.\n";
+	std::cout << "Food: " << park.getFood() << std::endl;
+	std::cout << "Capacity: " << park.getFoodCapacity() << std::endl;
+	std::cout << std::endl;
+	TestJurassicParkAddingDino(park);
+
+	std::cout << "After adding some dinos in the park.\n";
+	std::cout << "Food: " << park.getFood() << std::endl;
+	std::cout << "Capacity: " << park.getFoodCapacity() << std::endl;
+	std::cout << std::endl;
+
+	park.reloadWarehouse();
+	std::cout << "After reloading the warehouse.\n";
+	std::cout << "Food: " << park.getFood() << std::endl;
+	std::cout << "Capacity: " << park.getFoodCapacity() << std::endl;
+	std::cout << std::endl;
+}
+
+void TestJurassicParkStaff(JurassicPark& park) {
+	std::cout << "Staff: " << park.getStaff() << std::endl;
+	std::cout << std::endl;
+
+	TestJurassicParkAddCage(park);
+
+	std::cout << "After adding some cages in the park.\n";
+	std::cout << "Staff: " << park.getStaff() << std::endl;
+	std::cout << std::endl;
 }
