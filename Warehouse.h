@@ -5,7 +5,7 @@ class Warehouse {
 	int food_capacity;
 
 public:
-	Warehouse();  //default tons of food
+	Warehouse();
 	Warehouse(int food_capacity);
 
 	int getFood() const;

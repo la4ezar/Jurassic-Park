@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-JurassicPark::JurassicPark() {
+JurassicPark::JurassicPark(): warehouse() {
 	int x = (rand() % 15) + 1;
 	cages_num = x;
 	cages = new Cage[x];
@@ -31,7 +31,6 @@ JurassicPark::JurassicPark() {
 		cages[i] = Cage(y, climate);
 		dinosaurs_num += y;
 	}
-	//warehouse = Warehouse(dinosaurs_num * 10);	// default operator= is okay here(we have only ints to copy)
 	staff = Staff(x*2);
 
 }
